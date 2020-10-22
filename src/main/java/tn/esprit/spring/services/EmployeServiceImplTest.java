@@ -56,7 +56,9 @@ public class EmployeServiceImplTest {
 	//Chantouf
 	@Test
 	public void testGetEmployePrenomById() {
-		fail("Not yet implemented");
+		
+		assertNotNull(myClass.getEmployePrenomById(1));
+		l.info("Sucess");
 	}
 
 	@Test
