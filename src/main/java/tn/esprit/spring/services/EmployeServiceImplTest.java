@@ -2,6 +2,8 @@ package tn.esprit.spring.services;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
@@ -13,6 +15,8 @@ import tn.esprit.spring.entities.Role;
 public class EmployeServiceImplTest {
 	EmployeServiceImpl myClass = new EmployeServiceImpl();
 	private static final Logger l = Logger.getLogger(EmployeServiceImplTest.class);
+	
+	 private static EmployeServiceImpl service;
 	
 	//Sadok
 	@Test
@@ -119,7 +123,10 @@ public class EmployeServiceImplTest {
 
 	@Test
 	public void testGetAllEmployes() {
-		fail("Not yet implemented");
+		List<Employe> AllEmployes = service.getAllEmployes();
+	     assertNotNull("null !", AllEmployes);
+	     assertTrue("Rien trouvé", AllEmployes.size() > 0);
+	     System.out.println("all");
 	}
 
 }
