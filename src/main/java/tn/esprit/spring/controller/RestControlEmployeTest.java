@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import tn.esprit.spring.entities.Employe;
+import tn.esprit.spring.entities.Role;
 
 public class RestControlEmployeTest {
 	
@@ -15,11 +16,13 @@ public class RestControlEmployeTest {
 	@Test
 	public void testajouterEmploye() {
 		Employe e = new Employe();
-		e.setId(19);
+		
+		
 		e.setNom("Laouissi");
 		e.setPrenom("Sadok");
 		e.setActif(true);
 		e.setEmail("Sadok.laouissi@esprit.tn");
+		e.setRole(Role.ADMINISTRATEUR);
 		assertNotNull(myClass.ajouterEmploye(e));
 	}
 	@Test
