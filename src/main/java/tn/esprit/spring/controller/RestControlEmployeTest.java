@@ -49,7 +49,9 @@ public class RestControlEmployeTest {
 		// Chantouf
 	@Test
 	public void testgetEmployePrenomById() {
-		fail("Not yet implemented");
+		int employeId =1;
+		assertNotNull(myClass.getEmployePrenomById(employeId));
+		
 	}
 	@Test
 	public void testdeleteEmployeById() {
