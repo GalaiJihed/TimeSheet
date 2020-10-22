@@ -2,6 +2,7 @@ package tn.esprit.spring.controller;
 
 import static org.junit.Assert.*;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import tn.esprit.spring.entities.Employe;
@@ -10,20 +11,20 @@ import tn.esprit.spring.entities.Role;
 public class RestControlEmployeTest {
 	
 	RestControlEmploye myClass = new RestControlEmploye();
-	
+	private static final Logger l = Logger.getLogger(RestControlEmployeTest.class);
 	// Sadok
 
 	@Test
 	public void testajouterEmploye() {
 		Employe e = new Employe();
 		
-		
 		e.setNom("Laouissi");
 		e.setPrenom("Sadok");
 		e.setActif(true);
 		e.setEmail("Sadok.laouissi@esprit.tn");
 		e.setRole(Role.ADMINISTRATEUR);
-		assertNotNull(myClass.ajouterEmploye(e));
+		l.info(e.getNom());
+		assertEquals(e,myClass.ajouterEmploye(e));
 	}
 	@Test
 	public void testmettreAjourEmailByEmployeId() {
