@@ -29,14 +29,14 @@ public class RestControlEmployeTest {
 		fail("Not yet implemented");
 	}
 	
-	// end Sadok
-	
-	// Chantouf
-	
 	@Test
 	public void testaffecterContratAEmploye() {
 		fail("Not yet implemented");
 	}
+	
+	// end Sadok
+	
+		// Chantouf
 	@Test
 	public void testgetEmployePrenomById() {
 		fail("Not yet implemented");
@@ -54,9 +54,7 @@ public class RestControlEmployeTest {
 		fail("Not yet implemented");
 	}
 	
-	// end Chantouf
 	
-	// Kimo
 	@Test
 	public void testgetAllEmployeNamesJPQL() {
 		fail("Not yet implemented");
@@ -65,6 +63,10 @@ public class RestControlEmployeTest {
 	public void testgetAllEmployeByEntreprise() {
 		fail("Not yet implemented");
 	}
+	
+	// end Chantouf
+	
+	// Kimo
 	@Test
 	public void testmettreAjourEmailByEmployeIdJPQL() {
 		fail("Not yet implemented");
