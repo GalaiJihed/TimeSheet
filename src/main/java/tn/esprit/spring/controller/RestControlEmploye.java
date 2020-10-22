@@ -25,10 +25,10 @@ import tn.esprit.spring.entities.Timesheet;
 import tn.esprit.spring.services.IEmployeService;
 import tn.esprit.spring.services.IEntrepriseService;
 import tn.esprit.spring.services.ITimesheetService;
-
+import org.apache.log4j.Logger;
 @RestController
 public class RestControlEmploye {
-
+	private static final Logger l = Logger.getLogger(RestControlEmploye.class);
 	
 	@Autowired
 	IEmployeService iemployeservice;
@@ -45,7 +45,12 @@ public class RestControlEmploye {
 	@ResponseBody
 	public Employe ajouterEmploye(@RequestBody Employe employe)
 	{
-		iemployeservice.ajouterEmploye(employe);
+		try {
+			iemployeservice.ajouterEmploye(employe);
+			l.info("Adding new Employe ");
+			}
+			catch (Exception e) { l.error("Erreur dans l'ajout de l'employé " + e); }
+		
 		return employe;
 	}
 	
