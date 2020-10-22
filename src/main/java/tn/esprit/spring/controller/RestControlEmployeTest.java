@@ -15,7 +15,11 @@ public class RestControlEmployeTest {
 	@Test
 	public void testajouterEmploye() {
 		Employe e = new Employe();
-		e.setNom("Sadok");
+		e.setId(19);
+		e.setNom("Laouissi");
+		e.setPrenom("Sadok");
+		e.setActif(true);
+		e.setEmail("Sadok.laouissi@esprit.tn");
 		assertNotNull(myClass.ajouterEmploye(e));
 	}
 	@Test
