@@ -1,31 +1,58 @@
-package tn.esprit.spring.services;
+package tn.esprit.spring.controller;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
-import org.apache.log4j.Logger;
+import java.io.Console;
+
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
-import tn.esprit.spring.controller.RestControlEmploye;
 import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.entities.Role;
+import tn.esprit.spring.repository.EmployeRepository;
+import tn.esprit.spring.services.EmployeServiceImpl;
+import tn.esprit.spring.services.IEmployeService;
 
-public class EmployeServiceImplTest {
-	EmployeServiceImpl myClass = new EmployeServiceImpl();
-	private static final Logger l = Logger.getLogger(EmployeServiceImplTest.class);
+
+@SpringBootTest
+public class RestControlEmployeTest {
+
+	@Autowired
+	IEmployeService iemployeservice;
 	
-	//Sadok
-	@Test
-	public void testAjouterEmploye() throws Exception {
-		Employe e = new Employe();
+	
+	@Autowired
+	private EmployeRepository employeRepository ;
+	Employe e ;
+	@Before
+	public void setUp() {
+		e = new Employe();
 		e.setId(26);
 		e.setNom("Laouissi");
 		e.setPrenom("Sadok");
 		e.setActif(true);
 		e.setEmail("Sadok.laouissi@esprit.tn");
 		e.setRole(Role.ADMINISTRATEUR);
+	}
+	
+	
+	@Test
+	public void testAjouterEmploye() {
 		
-		 assertEquals("Not equals",26,myClass.ajouterEmploye(e));
-		l.info("Sucess");
+		
+		
+		when(
+				employeRepository.save(this.e)
+				).thenReturn(e);
+		
+		assertSame(e.getId(),iemployeservice.ajouterEmploye(e));
 	}
 
 	@Test
@@ -53,12 +80,9 @@ public class EmployeServiceImplTest {
 		fail("Not yet implemented");
 	}
 
-	//Chantouf
 	@Test
 	public void testGetEmployePrenomById() {
-		
-		assertNotNull(myClass.getEmployePrenomById(1));
-		l.info("Sucess");
+		fail("Not yet implemented");
 	}
 
 	@Test
@@ -86,7 +110,6 @@ public class EmployeServiceImplTest {
 		fail("Not yet implemented");
 	}
 
-	//kimo
 	@Test
 	public void testMettreAjourEmailByEmployeIdJPQL() {
 		fail("Not yet implemented");
