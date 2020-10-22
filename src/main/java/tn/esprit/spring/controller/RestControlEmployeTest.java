@@ -4,13 +4,19 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import tn.esprit.spring.entities.Employe;
+
 public class RestControlEmployeTest {
+	
+	RestControlEmploye myClass = new RestControlEmploye();
 	
 	// Sadok
 
 	@Test
 	public void testajouterEmploye() {
-		fail("Not yet implemented");
+		Employe e = new Employe();
+		e.setNom("Sadok");
+		assertNotNull(myClass.ajouterEmploye(e));
 	}
 	@Test
 	public void testmettreAjourEmailByEmployeId() {
