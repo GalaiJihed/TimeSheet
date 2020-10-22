@@ -28,28 +28,28 @@ public class RestControlEmployeTest {
 	IEmployeService iemployeservice;
 	
 	
-	@Autowired
+	@MockBean
 	private EmployeRepository employeRepository ;
-	Employe e ;
+	
 	@Before
 	public void setUp() {
-		e = new Employe();
-		e.setId(26);
-		e.setNom("Laouissi");
-		e.setPrenom("Sadok");
-		e.setActif(true);
-		e.setEmail("Sadok.laouissi@esprit.tn");
-		e.setRole(Role.ADMINISTRATEUR);
+		
 	}
 	
 	
 	@Test
 	public void testAjouterEmploye() {
 		
-		
+		Employe	e = new Employe();
+		e.setId(26);
+		e.setNom("Laouissi");
+		e.setPrenom("Sadok");
+		e.setActif(true);
+		e.setEmail("Sadok.laouissi@esprit.tn");
+		e.setRole(Role.ADMINISTRATEUR);
 		
 		when(
-				employeRepository.save(this.e)
+				employeRepository.save(e)
 				).thenReturn(e);
 		
 		assertSame(e.getId(),iemployeservice.ajouterEmploye(e));
