@@ -45,6 +45,7 @@ public class RestControlEmploye {
 	@ResponseBody
 	public Employe ajouterEmploye(@RequestBody Employe employe)
 	{
+		l.info(employe);
 		try {
 			iemployeservice.ajouterEmploye(employe);
 			l.info("Adding new Employe ");
