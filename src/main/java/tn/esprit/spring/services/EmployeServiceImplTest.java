@@ -2,16 +2,21 @@ package tn.esprit.spring.services;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import tn.esprit.spring.controller.RestControlEmploye;
 import tn.esprit.spring.entities.Employe;
+import tn.esprit.spring.entities.Entreprise;
 import tn.esprit.spring.entities.Role;
 
 public class EmployeServiceImplTest {
 	EmployeServiceImpl myClass = new EmployeServiceImpl();
 	private static final Logger l = Logger.getLogger(EmployeServiceImplTest.class);
+	
+	 private static EmployeServiceImpl service;
 	
 	//Sadok
 	@Test
@@ -58,32 +63,36 @@ public class EmployeServiceImplTest {
 	public void testGetEmployePrenomById() {
 		
 		assertNotNull(myClass.getEmployePrenomById(1));
-		l.info("Sucess");
+		
 	}
 
 	@Test
 	public void testDeleteEmployeById() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testDeleteContratById() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testGetNombreEmployeJPQL() {
-		fail("Not yet implemented");
+		assertNotNull(myClass.getNombreEmployeJPQL());
 	}
 
 	@Test
 	public void testGetAllEmployeNamesJPQL() {
-		fail("Not yet implemented");
+		assertNotNull(myClass.getAllEmployeNamesJPQL());
 	}
 
 	@Test
 	public void testGetAllEmployeByEntreprise() {
-		fail("Not yet implemented");
+		Entreprise e =new Entreprise();
+		e.setId(2);
+		e.setName("BWW");
+		e.setRaisonSocial("No Reason");
+		assertNotNull(myClass.getAllEmployeByEntreprise(e));
 	}
 
 	//kimo
@@ -114,7 +123,10 @@ public class EmployeServiceImplTest {
 
 	@Test
 	public void testGetAllEmployes() {
-		fail("Not yet implemented");
+		List<Employe> AllEmployes = service.getAllEmployes();
+	     assertNotNull("null !", AllEmployes);
+	     assertTrue("Rien trouvé", AllEmployes.size() > 0);
+	     System.out.println("all");
 	}
 
 }
