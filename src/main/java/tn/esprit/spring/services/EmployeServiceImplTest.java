@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import tn.esprit.spring.controller.RestControlEmploye;
 import tn.esprit.spring.entities.Employe;
+import tn.esprit.spring.entities.Entreprise;
 import tn.esprit.spring.entities.Role;
 
 public class EmployeServiceImplTest {
@@ -58,32 +59,36 @@ public class EmployeServiceImplTest {
 	public void testGetEmployePrenomById() {
 		
 		assertNotNull(myClass.getEmployePrenomById(1));
-		l.info("Sucess");
+		
 	}
 
 	@Test
 	public void testDeleteEmployeById() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testDeleteContratById() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testGetNombreEmployeJPQL() {
-		fail("Not yet implemented");
+		assertNotNull(myClass.getNombreEmployeJPQL());
 	}
 
 	@Test
 	public void testGetAllEmployeNamesJPQL() {
-		fail("Not yet implemented");
+		assertNotNull(myClass.getAllEmployeNamesJPQL());
 	}
 
 	@Test
 	public void testGetAllEmployeByEntreprise() {
-		fail("Not yet implemented");
+		Entreprise e =new Entreprise();
+		e.setId(2);
+		e.setName("BWW");
+		e.setRaisonSocial("No Reason");
+		assertNotNull(myClass.getAllEmployeByEntreprise(e));
 	}
 
 	//kimo
