@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.sym.Name;
+
 import tn.esprit.spring.entities.Contrat;
 import tn.esprit.spring.entities.Departement;
 import tn.esprit.spring.entities.Employe;
@@ -104,16 +106,21 @@ public class EmployeServiceImpl implements IEmployeService {
 	}
 	public void deleteEmployeById(int employeId)
 	{
+		l.info("this is this Id of the employe that will be remved  "+employeId);
 		Employe employe = employeRepository.findById(employeId).get();
-
+	
+		
 		//Desaffecter l'employe de tous les departements
 		//c'est le bout master qui permet de mettre a jour
 		//la table d'association
 		for(Departement dep : employe.getDepartements()){
 			dep.getEmployes().remove(employe);
 		}
-
+		l.info("Before  "+employeId);
+		
 		employeRepository.delete(employe);
+		l.info(" Employe with  ID "+employeId +"is removed");
+		
 	}
 
 	public void deleteContratById(int contratId) {
@@ -124,15 +131,23 @@ public class EmployeServiceImpl implements IEmployeService {
 	}
 
 	public int getNombreEmployeJPQL() {
+		l.info("the numbers of employes is :"+employeRepository.countemp());
 		return employeRepository.countemp();
 	}
 	
 	public List<String> getAllEmployeNamesJPQL() {
+		l.info("Names of employes : "+employeRepository.employeNames());
 		return employeRepository.employeNames();
 
 	}
 	
 	public List<Employe> getAllEmployeByEntreprise(Entreprise entreprise) {
+		List<Employe> employes =employeRepository.getAllEmployeByEntreprisec(entreprise);
+		ArrayList <String> Names = new ArrayList<>();
+		for (int i = 0; i < employes.size(); i++) {
+		     Names.add(employes.get(i).getNom());
+		}
+			l.info("the name of the company :" + entreprise.getName() +" and  her employes are :" + Names );
 		return employeRepository.getAllEmployeByEntreprisec(entreprise);
 	}
 
