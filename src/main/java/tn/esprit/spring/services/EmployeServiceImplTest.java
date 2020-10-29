@@ -1,132 +1,66 @@
 package tn.esprit.spring.services;
-
-import static org.junit.Assert.*;
-
+import java.util.Arrays;
 import java.util.List;
-
-import org.apache.log4j.Logger;
+import java.util.Optional;
+import org.hamcrest.Matchers;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import tn.esprit.spring.controller.RestControlEmploye;
 import tn.esprit.spring.entities.Employe;
-import tn.esprit.spring.entities.Entreprise;
 import tn.esprit.spring.entities.Role;
+import tn.esprit.spring.repository.EmployeRepository;
 
+/**
+ * Test the User Service Implementation: test the service logic
+ *
+ * @author Charz++
+ */
+
+@RunWith(MockitoJUnitRunner.class)
 public class EmployeServiceImplTest {
-	EmployeServiceImpl myClass = new EmployeServiceImpl();
-	private static final Logger l = Logger.getLogger(EmployeServiceImplTest.class);
-	
-	 private static EmployeServiceImpl service;
-	
-	//Sadok
-	@Test
-	public void testAjouterEmploye() throws Exception {
-		Employe e = new Employe();
-		e.setId(26);
-		e.setNom("Laouissi");
-		e.setPrenom("Sadok");
-		e.setActif(true);
-		e.setEmail("Sadok.laouissi@esprit.tn");
-		e.setRole(Role.ADMINISTRATEUR);
-		
-		 assertEquals("Not equals",26,myClass.ajouterEmploye(e));
-		l.info("Sucess");
-	}
 
-	@Test
-	public void testMettreAjourEmailByEmployeId() {
-		fail("Not yet implemented");
-	}
+  private static final Long USER_ONE_ID = 1L;
 
-	@Test
-	public void testAffecterEmployeADepartement() {
-		fail("Not yet implemented");
-	}
 
-	@Test
-	public void testDesaffecterEmployeDuDepartement() {
-		fail("Not yet implemented");
-	}
+  @Mock
+  private EmployeRepository repoMock;
 
-	@Test
-	public void testAjouterContrat() {
-		fail("Not yet implemented");
-	}
+  @InjectMocks
+  private EmployeServiceImpl userService;
 
-	@Test
-	public void testAffecterContratAEmploye() {
-		fail("Not yet implemented");
-	}
+  private Employe userDoc;
+  
+  @Before
+  public void init() {
+    userDoc = new Employe();
+    userDoc.setId(1);
+    userDoc.setNom("Carlos");
+    userDoc.setPrenom("Charz");
+    userDoc.setRole(Role.ADMINISTRATEUR);
+    userDoc.setEmail("carlos@yopmail.com");
 
-	//Chantouf
-	@Test
-	public void testGetEmployePrenomById() {
-		
-		assertNotNull(myClass.getEmployePrenomById(1));
-		
-	}
+  
+  }
+  @Test
+  public void getEmployePrenomById() {
+    // Data preparation
+    Mockito.when(repoMock.findById(1)).thenReturn(Optional.of(userDoc));
 
-	@Test
-	public void testDeleteEmployeById() {
-		
-	}
+    // Method call
+    String employe = userService.getEmployePrenomById(1);
 
-	@Test
-	public void testDeleteContratById() {
-		
-	}
-
-	@Test
-	public void testGetNombreEmployeJPQL() {
-		assertNotNull(myClass.getNombreEmployeJPQL());
-	}
-
-	@Test
-	public void testGetAllEmployeNamesJPQL() {
-		assertNotNull(myClass.getAllEmployeNamesJPQL());
-	}
-
-	@Test
-	public void testGetAllEmployeByEntreprise() {
-		Entreprise e =new Entreprise();
-		e.setId(2);
-		e.setName("BWW");
-		e.setRaisonSocial("No Reason");
-		assertNotNull(myClass.getAllEmployeByEntreprise(e));
-	}
-
-	//kimo
-	@Test
-	public void testMettreAjourEmailByEmployeIdJPQL() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDeleteAllContratJPQL() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetSalaireByEmployeIdJPQL() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetSalaireMoyenByDepartementId() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetTimesheetsByMissionAndDate() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetAllEmployes() {
-		List<Employe> AllEmployes = service.getAllEmployes();
-	     assertNotNull("null !", AllEmployes);
-	     assertTrue("Rien trouvé", AllEmployes.size() > 0);
-	     System.out.println("all");
-	}
+    // Verification
+    Assert.assertNotNull(employe);
+    Mockito.verify(repoMock, Mockito.times(1)).findById(1);
+    Mockito.verifyNoMoreInteractions(repoMock);
+  }
+  
 
 }

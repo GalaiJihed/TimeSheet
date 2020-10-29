@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,7 @@ import tn.esprit.spring.repository.TimesheetRepository;
 
 @Service
 public class EmployeServiceImpl implements IEmployeService {
-
+	private static final Logger l = Logger.getLogger(EmployeServiceImpl.class);
 	@Autowired
 	EmployeRepository employeRepository;
 	@Autowired
@@ -89,7 +90,11 @@ public class EmployeServiceImpl implements IEmployeService {
 	}
 
 	public String getEmployePrenomById(int employeId) {
+		l.info("before getting the lastname of the employe");
 		Employe employeManagedEntity = employeRepository.findById(employeId).get();
+		l.info(employeManagedEntity.getPrenom());
+		l.info("after getting the lastname of the employe");
+		
 		return employeManagedEntity.getPrenom();
 	}
 	public void deleteEmployeById(int employeId)

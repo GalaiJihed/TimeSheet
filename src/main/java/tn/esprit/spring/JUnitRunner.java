@@ -8,7 +8,7 @@ import tn.esprit.spring.services.EmployeServiceImplTest;
 public class JUnitRunner {
 
 	public static void main(String[] args) {
-		Result result = JUnitCore.runClasses(RestControlEmployeTest.class);
+		Result result = JUnitCore.runClasses(EmployeServiceImplTest.class);
 	    for (Failure failure : result.getFailures()) {
 	      System.out.println(failure.toString());
 	    }
