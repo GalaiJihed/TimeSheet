@@ -2,6 +2,7 @@ package tn.esprit.spring.controller;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.entities.Departement;
 import tn.esprit.spring.entities.Entreprise;
+import tn.esprit.spring.services.EmployeServiceImpl;
 import tn.esprit.spring.services.IEmployeService;
 import tn.esprit.spring.services.IEntrepriseService;
 import tn.esprit.spring.services.ITimesheetService;
@@ -21,7 +23,8 @@ import tn.esprit.spring.services.ITimesheetService;
 @RestController
 public class RestControlEntreprise {
 
-	
+	private static final Logger l = Logger.getLogger(RestControlEntreprise.class);
+
 	@Autowired
 	IEmployeService iemployeservice;
 	@Autowired
@@ -35,6 +38,7 @@ public class RestControlEntreprise {
 	@PostMapping("/ajouterEntreprise")
 	@ResponseBody
 	public int ajouterEntreprise(@RequestBody Entreprise ssiiConsulting) {
+		l.info("adding company with id :" + ssiiConsulting.getId());
 		ientrepriseservice.ajouterEntreprise(ssiiConsulting);
 		return ssiiConsulting.getId();
 	}

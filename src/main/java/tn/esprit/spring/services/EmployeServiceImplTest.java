@@ -49,7 +49,7 @@ public class EmployeServiceImplTest {
   @Before
   public void init() throws ParseException {
     
-	  employe = new Employe();
+	employe = new Employe();
     employe.setId(1);
     employe.setNom("Laouissi");
     employe.setPrenom("Sadok");
@@ -183,5 +183,44 @@ public class EmployeServiceImplTest {
     Mockito.verify(repoEmploye, Mockito.times(1)).findAll();
     Mockito.verifyNoMoreInteractions(repoEmploye);
   }
+  
+  @Test
+  public void getAllEmployes()
+  {
+ 	 
+ 	 
+ 	 
+ 	 List<Employe> employes = Arrays.asList(employe, employe1, employe2);
+ 	    Mockito.when(repoEmploye.findAll()).thenReturn(employes);
+
+ 	    // Method call
+ 	    List<Employe> employesQty = EmployeService.getAllEmployes();
+
+ 	    // Verification
+ 	    Assert.assertThat(employesQty, Matchers.is(3));
+ 	    Mockito.verify(repoEmploye, Mockito.times(1)).findAll();
+ 	    Mockito.verifyNoMoreInteractions(repoEmploye);
+  
+ 	 
+  }
+  @Test
+  public void  deleteAllContratJPQL()
+  {
+ 	 
+ 	 List<Contrat> contracts = Arrays.asList(contrat, contrat, contrat);
+ 	    Mockito.when(repoContrat.findAll()).thenReturn(contracts);
+
+ 	    // Method call
+ 	    EmployeService.deleteAllContratJPQL();
+
+ 	    // Verification
+ 	    Assert.assertThat(contracts, Matchers.is(3));
+ 	    Mockito.verify(repoEmploye, Mockito.times(1)).deleteAllContratJPQL();
+ 	    Mockito.verifyNoMoreInteractions(repoEmploye);
+
+ 	 
+ 	 
+  }
+  
   
 }
