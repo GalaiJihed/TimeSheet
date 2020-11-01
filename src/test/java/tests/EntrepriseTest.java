@@ -58,7 +58,7 @@ public class EntrepriseTest {
   }
   
   @Test
-  public void affecterDepartementAEntreprise() { 
+  public void affecterDepartementAEntreprise() {
 	Assert.assertTrue(entrepriseService.affecterDepartementAEntreprise(departement.getId(), entreprise.getId())); 
   }
   

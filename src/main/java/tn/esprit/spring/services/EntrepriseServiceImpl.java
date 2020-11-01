@@ -62,6 +62,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 			Departement depManagedEntity = deptRepoistory.findById(depId).get();	
 			depManagedEntity.setEntreprise(entrepriseManagedEntity);
 			deptRepoistory.save(depManagedEntity);
+			result = true;
 		} catch (Exception e) {
 			l.error("Erreur : " + e);
 		}
