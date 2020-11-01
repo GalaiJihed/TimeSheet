@@ -1,4 +1,4 @@
-package tn.esprit.test;
+package tests;
 
 import java.text.ParseException;
 import java.util.Arrays;
