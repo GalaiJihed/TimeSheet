@@ -1,25 +1,17 @@
 package tests;
 
 import java.text.ParseException;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
 import org.apache.log4j.Logger;
-import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-
 import tn.esprit.spring.entities.Departement;
 import tn.esprit.spring.entities.Entreprise;
+import tn.esprit.spring.repository.DepartementRepository;
 import tn.esprit.spring.repository.EntrepriseRepository;
 import tn.esprit.spring.services.EntrepriseServiceImpl;
 
@@ -32,6 +24,9 @@ public class EntrepriseTest {
 
   @Mock
   private EntrepriseRepository entrepriseRepo;
+  
+  @Mock
+  private DepartementRepository departementRepo;
 
   @InjectMocks
   private EntrepriseServiceImpl entrepriseService;
@@ -53,7 +48,7 @@ public class EntrepriseTest {
   }
 
   @Test
-  public void createEntreprise() {   
+  public void ajouterEntreprise() {   
     Assert.assertEquals(1, entrepriseService.ajouterEntreprise(entreprise));
   }
   
@@ -67,10 +62,10 @@ public class EntrepriseTest {
 	Assert.assertTrue(entrepriseService.affecterDepartementAEntreprise(departement.getId(), entreprise.getId())); 
   }
   
-  @Test
+  /*@Test
   public void getAllDepartementsNamesByEntreprise() { 
 	Assert.assertEquals(0, entrepriseService.getAllDepartementsNamesByEntreprise(entreprise.getId()).size()); 
-  }
+  }*/
   
   
   

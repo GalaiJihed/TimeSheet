@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.apache.log4j.Logger;
 import tn.esprit.spring.entities.Departement;
-import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.entities.Entreprise;
 import tn.esprit.spring.repository.DepartementRepository;
 import tn.esprit.spring.repository.EntrepriseRepository;
@@ -20,8 +19,9 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 
 	@Autowired
     EntrepriseRepository entrepriseRepoistory;
+	
 	@Autowired
-	DepartementRepository deptRepoistory;
+    DepartementRepository deptRepoistory;
 	
 	public int ajouterEntreprise(Entreprise entreprise) {
 		int result = -1;
@@ -32,7 +32,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 		} catch (Exception e) {
 			l.error("Erreur : " + e);
 		}
-		l.info("Out ajouterEntreprise : " + entreprise.getId() + "\n");
+		l.info("Out ajouterEntreprise : " + result + "\n");
 		return result;
 	}
 
@@ -41,7 +41,7 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 		try {
 			l.info("In ajouterDepartement : " + dep.toString());
 			deptRepoistory.save(dep);
-			result =  dep.getId();
+			result = dep.getId();
 		} catch (Exception e) {
 			l.error("Erreur : " + e);
 		}
