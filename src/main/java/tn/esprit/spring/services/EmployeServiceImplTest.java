@@ -139,17 +139,7 @@ public class EmployeServiceImplTest {
   }
 
   
-  @Test
-  public void deleteEmployeById () {
-    // Data preparation
-	  // Data preparation
-	    Mockito.when(repoEmploye.findById(employe.getId())).thenReturn(Optional.of(employe));
-	    EmployeService.deleteEmployeById(employe.getId());
-	    
-	    // Verification
-	    Mockito.verify(repoEmploye, Mockito.times(1)).deleteById(employe.getId());
-	    Mockito.verifyNoMoreInteractions(repoEmploye);
-  }
+ 
   @Test
   public void getNombreEmployeJPQL() {
 	    // Data preparation
