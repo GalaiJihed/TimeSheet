@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import org.apache.log4j.Logger;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,45 +17,61 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import tn.esprit.spring.entities.Departement;
 import tn.esprit.spring.entities.Entreprise;
 import tn.esprit.spring.repository.EntrepriseRepository;
-import tn.esprit.spring.controller.RestControlEntreprise;
+import tn.esprit.spring.services.EntrepriseServiceImpl;
 
 
 @RunWith(MockitoJUnitRunner.class)
 public class EntrepriseTest {
 
   private static final Long USER_ONE_ID = 1L;
+  private static final Logger l = Logger.getLogger(EntrepriseServiceImpl.class);
 
   @Mock
   private EntrepriseRepository entrepriseRepo;
 
   @InjectMocks
-  private RestControlEntreprise entrepriseController;
+  private EntrepriseServiceImpl entrepriseService;
 
-  private Entreprise entreprise1, entreprise2, entreprise3;
+  private Entreprise entreprise;
+  private Departement departement;
   
   @Before
   public void init() throws ParseException {
-    
-	entreprise1 = new Entreprise();
-	entreprise1.setId(1);
-	entreprise1.setName("SSII Consulting");
-	entreprise1.setRaisonSocial("Cite El Ghazela");
-    
+	  
+	entreprise = new Entreprise();
+	entreprise.setId(1);
+	entreprise.setName("SSII Consulting");
+	entreprise.setRaisonSocial("Cite El Ghazela");
+	
+	departement = new Departement();
+	departement.setId(1);
+	departement.setName("Telecom");
   }
 
   @Test
-  public void createEntreprise() {
-    // Data preparation
-    Mockito.when(entrepriseRepo.findById(1)).thenReturn(Optional.of(entreprise1));
-
-    // Method call
-    int entrepriseId = entrepriseController.ajouterEntreprise(entreprise1);
-
-    // Verification
-    Assert.assertNull(entrepriseId);
-    Mockito.verify(entrepriseRepo, Mockito.times(1)).findById(1);
-    Mockito.verifyNoMoreInteractions(entrepriseRepo);
+  public void createEntreprise() {   
+    Assert.assertEquals(1, entrepriseService.ajouterEntreprise(entreprise));
   }
+  
+  @Test
+  public void ajouterDepartement() {   
+	Assert.assertEquals(1, entrepriseService.ajouterDepartement(departement)); 
+  }
+  
+  @Test
+  public void affecterDepartementAEntreprise() { 
+	Assert.assertTrue(entrepriseService.affecterDepartementAEntreprise(departement.getId(), entreprise.getId())); 
+  }
+  
+  @Test
+  public void getAllDepartementsNamesByEntreprise() { 
+	Assert.assertEquals(0, entrepriseService.getAllDepartementsNamesByEntreprise(entreprise.getId()).size()); 
+  }
+  
+  
+  
 }
