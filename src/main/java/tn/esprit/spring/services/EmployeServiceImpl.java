@@ -156,7 +156,9 @@ public class EmployeServiceImpl implements IEmployeService {
 
 	}
 	public void deleteAllContratJPQL() {
-         employeRepository.deleteAllContratJPQL();
+		l.info("delete");
+        employeRepository.deleteAllContratJPQL();
+        l.info("after deleted");
 	}
 	
 	public float getSalaireByEmployeIdJPQL(int employeId) {
@@ -173,6 +175,7 @@ public class EmployeServiceImpl implements IEmployeService {
 	}
 
 	public List<Employe> getAllEmployes() {
+		l.info("get All employes "+ (List<Employe>) employeRepository.findAll());
 				return (List<Employe>) employeRepository.findAll();
 	}
 
