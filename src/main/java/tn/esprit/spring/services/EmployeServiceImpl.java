@@ -106,28 +106,40 @@ public class EmployeServiceImpl implements IEmployeService {
 	}
 	public void deleteEmployeById(int employeId)
 	{
-		l.info("this is this Id of the employe that will be remved  "+employeId);
-		Employe employe = employeRepository.findById(employeId).get();
-	
+		try{
+			l.info("this is this Id of the employe that will be remved  "+employeId);
+			Employe employe = employeRepository.findById(employeId).get();
 		
-		//Desaffecter l'employe de tous les departements
-		//c'est le bout master qui permet de mettre a jour
-		//la table d'association
-		for(Departement dep : employe.getDepartements()){
-			dep.getEmployes().remove(employe);
+			
+			//Desaffecter l'employe de tous les departements
+			//c'est le bout master qui permet de mettre a jour
+			//la table d'association
+			for(Departement dep : employe.getDepartements()){
+				dep.getEmployes().remove(employe);
+			}
+			l.info("Before  "+employeId);
+			
+			employeRepository.delete(employe);
+			l.info(" Employe with  ID "+employeId +"is removed");
+			
+		}catch (Exception e) {
+			l.error(e);
 		}
-		l.info("Before  "+employeId);
-		
-		employeRepository.delete(employe);
-		l.info(" Employe with  ID "+employeId +"is removed");
+	
 		
 	}
 
 	public void deleteContratById(int contratId) {
-		Contrat contratManagedEntity = contratRepoistory.findById(contratId).get();
-		l.info("contract with Reference  "+contratId);
-		contratRepoistory.delete(contratManagedEntity);
-				l.info("contract with Reference  "+contratId+" Deleted");
+		try{
+			Contrat contratManagedEntity = contratRepoistory.findById(contratId).get();
+			l.info("contract with Reference  "+contratId);
+			contratRepoistory.delete(contratManagedEntity);
+					l.info("contract with Reference  "+contratId+" Deleted");
+		}catch (Exception e) {
+			// TODO: handle exception
+			l.error(e);
+		}
+		
 	}
 
 	public int getNombreEmployeJPQL() {
