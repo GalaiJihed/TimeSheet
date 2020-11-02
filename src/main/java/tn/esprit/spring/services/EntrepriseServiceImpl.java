@@ -97,7 +97,16 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 
 
 	public Entreprise getEntrepriseById(int entrepriseId) {
-		return entrepriseRepoistory.findById(entrepriseId).get();	
+		Entreprise entreprise = new Entreprise();
+		try {
+			l.info("In getEntrepriseById : entrepriseId[" + entrepriseId + "]");
+			entreprise = entrepriseRepoistory.findById(entrepriseId).get();
+		} catch (Exception e) {
+			l.error("Erreur : " + e);
+		}
+		l.info("Out getEntrepriseById : " + entreprise + "\n");
+		
+		return entreprise; 	
 	}
 
 }
