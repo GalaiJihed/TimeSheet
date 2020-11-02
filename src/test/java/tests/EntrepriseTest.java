@@ -94,10 +94,17 @@ public class EntrepriseTest {
 	  Mockito.doReturn(Optional.of(departement)).when(departementRepo).findById(1);
 	  Assert.assertTrue(entrepriseService.affecterDepartementAEntreprise(1, 1)); 
   }
+  
+  @Test
+  public void deleteEntrepriseById() {
+	  Mockito.doReturn(Optional.of(entreprise)).when(entrepriseRepo).findById(1);
+	  Assert.assertTrue(entrepriseService.deleteEntrepriseById(1)); 
+  }
+  
+  @Test
+  public void deleteDepartementById() {
+	  Mockito.doReturn(Optional.of(departement)).when(departementRepo).findById(1);
+	  Assert.assertTrue(entrepriseService.deleteDepartementById(1)); 
+  }
 
-  
-  
-
-  
-  
 }

@@ -86,13 +86,31 @@ public class EntrepriseServiceImpl implements IEntrepriseService {
 	}
 
 	@Transactional
-	public void deleteEntrepriseById(int entrepriseId) {
-		entrepriseRepoistory.delete(entrepriseRepoistory.findById(entrepriseId).get());	
+	public boolean deleteEntrepriseById(int entrepriseId) {
+		boolean result = false;
+		try {
+			l.info("In deleteEntrepriseById : entrepriseId[" + entrepriseId + "]");
+			entrepriseRepoistory.delete(entrepriseRepoistory.findById(entrepriseId).get());
+			result = true;
+		} catch (Exception e) {
+			l.error("Erreur : " + e);
+		}
+		l.info("Out deleteEntrepriseById : " + result + "\n");
+		return result;
 	}
 
 	@Transactional
-	public void deleteDepartementById(int depId) {
-		deptRepoistory.delete(deptRepoistory.findById(depId).get());	
+	public boolean deleteDepartementById(int depId) {
+		boolean result = false;
+		try {
+			l.info("In deleteDepartementById : depId[" + depId + "]");
+			deptRepoistory.delete(deptRepoistory.findById(depId).get());
+			result = true;
+		} catch (Exception e) {
+			l.error("Erreur : " + e);
+		}
+		l.info("Out deleteDepartementById : " + result + "\n");
+		return result;
 	}
 
 
