@@ -13,11 +13,5 @@ mvn sonar:sonar
       }
     }
 
-    stage('Step Compile') {
-      steps {
-        bat 'mvn clean compile'
-      }
-    }
-
   }
 }
