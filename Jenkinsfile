@@ -9,7 +9,7 @@ pipeline {
 
     stage('Testing Stage') {
       steps {
-        sh 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dlicense.skip=true'
+        sh 'mvn sonar:sonar -Dsonar.host.url=http://localhost:8081-Dlicense.skip=true'
       }
     }
 
