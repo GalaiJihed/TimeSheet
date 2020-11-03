@@ -61,7 +61,7 @@ public class EntrepriseTest {
 	
   }
 
- @Test
+  @Test
   public void ajouterEntreprise() {
 	 Assert.assertEquals(1, entrepriseService.ajouterEntreprise(entreprise));
   }
