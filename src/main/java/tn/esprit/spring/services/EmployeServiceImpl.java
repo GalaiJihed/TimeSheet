@@ -35,47 +35,85 @@ public class EmployeServiceImpl implements IEmployeService {
 	TimesheetRepository timesheetRepository;
 
 	public int ajouterEmploye(Employe employe) {
-		employeRepository.save(employe);
-		l.info("employe added  :"+employe.getId());
-		return employe.getId();
+		int result = -1;
+		try {
+			l.info("In ajouter Employé : " + employe.toString());
+			employeRepository.save(employe);
+			result = employe.getId();
+		} catch (Exception e) {
+			l.error("Erreur : " + e);
+		}
+		l.info("Out ajouter Employé : " + result + "\n");
+		return result;
 	}
 
-	public void mettreAjourEmailByEmployeId(String email, int employeId) {
-		Employe employe = employeRepository.findById(employeId).get();
-		employe.setEmail(email);
-		employeRepository.save(employe);
+	public boolean mettreAjourEmailByEmployeId(String email, int employeId) {
+		
+		boolean result = false;
+		try {
+			l.info("In mettreAjourEmailByEmployeId : emplId[" + employeId + "] / email[" + email + "]");
+			Employe employe = employeRepository.findById(employeId).get();
+			employe.setEmail(email);
+			employeRepository.save(employe);
+			result = true;
+		} catch (Exception e) {
+			l.error("Erreur : " + e);
+		}
+		l.info("Out mettreAjourEmailByEmployeId : " + result + "\n");
+		return result;
 
 	}
 
 	@Transactional	
-	public void affecterEmployeADepartement(int employeId, int depId) {
-		Departement depManagedEntity = deptRepoistory.findById(depId).get();
-		Employe employeManagedEntity = employeRepository.findById(employeId).get();
+	public boolean affecterEmployeADepartement(int employeId, int depId) {
 
-		if(depManagedEntity.getEmployes() == null){
+		boolean result = false;
+		try {
+			l.info("In affecterEmployeADepartement : depId[" + depId + "] / emplId[" + employeId + "]");
+			Departement depManagedEntity = deptRepoistory.findById(depId).get();
+			Employe employeManagedEntity = employeRepository.findById(employeId).get();
 
-			List<Employe> employes = new ArrayList<>();
-			employes.add(employeManagedEntity);
-			depManagedEntity.setEmployes(employes);
-		}else{
+			if(depManagedEntity.getEmployes() == null){
 
-			depManagedEntity.getEmployes().add(employeManagedEntity);
+				List<Employe> employes = new ArrayList<>();
+				employes.add(employeManagedEntity);
+				depManagedEntity.setEmployes(employes);
+			}else{
 
+				depManagedEntity.getEmployes().add(employeManagedEntity);
+
+			}
+			result = true;
+		} catch (Exception e) {
+			l.error("Erreur : " + e);
 		}
+		l.info("Out affecterDepartementAEntreprise : " + result + "\n");
+		return result;
 
 	}
 	@Transactional
-	public void desaffecterEmployeDuDepartement(int employeId, int depId)
+	public boolean desaffecterEmployeDuDepartement(int employeId, int depId)
 	{
-		Departement dep = deptRepoistory.findById(depId).get();
+		
+		
+		boolean result = false;
+		try {
+			l.info("In affecterEmployeADepartement : depId[" + depId + "] / emplId[" + employeId + "]");
+			Departement dep = deptRepoistory.findById(depId).get();
 
-		int employeNb = dep.getEmployes().size();
-		for(int index = 0; index < employeNb; index++){
-			if(dep.getEmployes().get(index).getId() == employeId){
-				dep.getEmployes().remove(index);
-				break;//a revoir
+			int employeNb = dep.getEmployes().size();
+			for(int index = 0; index < employeNb; index++){
+				if(dep.getEmployes().get(index).getId() == employeId){
+					dep.getEmployes().remove(index);
+					break;//a revoir
+				}
 			}
+			result = true;
+		} catch (Exception e) {
+			l.error("Erreur : " + e);
 		}
+		l.info("Out affecterDepartementAEntreprise : " + result + "\n");
+		return result;
 	}
 
 	public int ajouterContrat(Contrat contrat) {
@@ -86,13 +124,22 @@ public class EmployeServiceImpl implements IEmployeService {
 		return contrat.getReference();
 	}
 
-	public void affecterContratAEmploye(int contratId, int employeId) {
-		Contrat contratManagedEntity = contratRepoistory.findById(contratId).get();
-		Employe employeManagedEntity = employeRepository.findById(employeId).get();
+	public boolean affecterContratAEmploye(int contratId, int employeId) {
 
-		contratManagedEntity.setEmploye(employeManagedEntity);
-		contratRepoistory.save(contratManagedEntity);
-		l.info("Contrat affected to employe with ID   :"+employeId);
+		boolean result = false;
+		try {
+			l.info("In affecterContratAEmploye : contratId[" + contratId + "] / emplId[" + employeId + "]");
+			Contrat contratManagedEntity = contratRepoistory.findById(contratId).get();
+			Employe employeManagedEntity = employeRepository.findById(employeId).get();
+
+			contratManagedEntity.setEmploye(employeManagedEntity);
+			contratRepoistory.save(contratManagedEntity);
+			result = true;
+		} catch (Exception e) {
+			l.error("Erreur : " + e);
+		}
+		l.info("Out affecterContratAEmploye : " + result + "\n");
+		return result;
 		
 	}
 
