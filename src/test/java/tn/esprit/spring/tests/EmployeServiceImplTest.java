@@ -3,6 +3,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -19,10 +20,12 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import tn.esprit.spring.entities.Contrat;
+import tn.esprit.spring.entities.Departement;
 import tn.esprit.spring.entities.Employe;
 import tn.esprit.spring.entities.Entreprise;
 import tn.esprit.spring.entities.Role;
 import tn.esprit.spring.repository.ContratRepository;
+import tn.esprit.spring.repository.DepartementRepository;
 import tn.esprit.spring.repository.EmployeRepository;
 import tn.esprit.spring.repository.EntrepriseRepository;
 import tn.esprit.spring.services.EmployeServiceImpl;
@@ -48,13 +51,15 @@ public class EmployeServiceImplTest {
   private Employe employe,employe1,employe2;
   private Entreprise entreprise;
   private Contrat contrat;
+  private Departement departement,departement1;
   @Mock
   private ContratRepository repoContrat;
-
-  
+  @Mock
+  private DepartementRepository departmentRepo;
+  List<Employe> employes; 
   @Before
   public void init() throws ParseException {
-    
+	 employes = new ArrayList<>();
 	employe = new Employe();
     employe.setId(1);
     employe.setNom("Laouissi");
@@ -80,6 +85,7 @@ public class EmployeServiceImplTest {
     SimpleDateFormat DateFor = new SimpleDateFormat("yyyy/MM/dd");
     Date date = DateFor.parse("2020/08/08");
     contrat = new Contrat();
+    
     contrat.setDateDebut(date);
     contrat.setReference(124);
     contrat.setSalaire(1000);
@@ -91,9 +97,66 @@ public class EmployeServiceImplTest {
     entreprise.setName("Vermeg");
     entreprise.setRaisonSocial("VERMEG FRANCE");
     
-    
+    departement = new Departement();
+	departement.setId(1);
+	departement.setName("Telecom");
+	departement1 = new Departement();
+	departement1.setId(2);
+	departement1.setName("Orange");
+	employes.add(employe);
+	
+	entreprise.addDepartement(departement);
+	
+	departement1.setEmployes(employes);
+
   }
+  
+  
   @Test
+  public void createEmploye() {
+	  Assert.assertEquals(1, EmployeService.ajouterEmploye(employe));
+   
+  }
+  
+  @Test
+  public void mettreAjourEmailByEmployeId() {
+	// Data preparation
+	  Mockito.when(repoEmploye.findById(1)).thenReturn(Optional.of(employe));
+	// Method call
+	  Assert.assertTrue(EmployeService.mettreAjourEmailByEmployeId("Sadok.laouissi@esprit.tn",1));
+   
+	}
+  
+  @Test
+  public void affecterEmployeADepartement(){
+	  Mockito.doReturn(Optional.of(employe)).when(repoEmploye).findById(1);
+	  Mockito.doReturn(Optional.of(departement)).when(departmentRepo).findById(1);
+	 Assert.assertTrue(EmployeService.affecterEmployeADepartement(1, 1)); 
+  }
+  
+  @Test
+  public void desaffecterEmployeDuDepartement(){
+	 // Mockito.doReturn(Optional.of(employe)).when(repoEmploye).findById(1);
+	  Mockito.doReturn(Optional.of(departement1)).when(departmentRepo).findById(2);
+	 Assert.assertTrue(EmployeService.desaffecterEmployeDuDepartement(1, 2)); 
+  }
+  
+  @Test
+  public void ajouterContrat(){
+	  Assert.assertEquals(124, EmployeService.ajouterContrat(contrat));
+  }
+  
+  @Test
+  public void affecterContratAEmploye(){
+	  Mockito.doReturn(Optional.of(employe)).when(repoEmploye).findById(1);
+	  Mockito.doReturn(Optional.of(contrat)).when(repoContrat).findById(1);
+	 Assert.assertTrue(EmployeService.affecterContratAEmploye(1, 1)); 
+  }
+  
+  
+  
+  /*************************************Chantouf*************************************/
+ @Test
   public void getEmployePrenomById() {
     // Data preparation
     Mockito.when(repoEmploye.findById(1)).thenReturn(Optional.of(employe));
@@ -106,26 +169,9 @@ public class EmployeServiceImplTest {
     Mockito.verify(repoEmploye, Mockito.times(1)).findById(1);
     Mockito.verifyNoMoreInteractions(repoEmploye);
   }
-  @Test
-  public void createEmploye() {
-    // Data preparation
-   
-    // Method call
-    int user = EmployeService.ajouterEmploye(employe);
-
-    // Verification
-    Assert.assertNotNull(user);
-   
-  }
   
-  /*
-  @Test
-  public void addContrat() {
-     int c = EmployeService.ajouterContrat(contrat);
-    Assert.assertNull(c);
-   
-  }
-  */
+  
+ 
   @Test
   public void deleteContratById() {
     // Data preparation
